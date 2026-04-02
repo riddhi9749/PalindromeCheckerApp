@@ -1,11 +1,11 @@
 /**
  * Palindrome Checker Application
- * Use Case 2: Hardcoded Palindrome Check
+ * Use Case 3: Palindrome Check Using String Reverse (Loop)
  *
- * Checks whether a predefined string is a palindrome.
+ * Reverses a string using a loop and checks palindrome.
  *
  * @author YourName
- * @version 2.0
+ * @version 3.0
  */
 
 public class PalindromeCheckerApp {
@@ -13,19 +13,27 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
         System.out.println("===== Palindrome Checker App =====");
-        System.out.println("Version: 2.0\n");
+        System.out.println("Version: 3.0\n");
 
-        // 🔹 HARDCODED STRING
+        // 🔹 ORIGINAL STRING
         String word = "madam";
 
-        // 🔹 REVERSE STRING
-        String reversed = new StringBuilder(word).reverse().toString();
+        // 🔹 REVERSE USING LOOP
+        String reversed = "";
+
+        for (int i = word.length() - 1; i >= 0; i--) {
+            reversed = reversed + word.charAt(i);
+        }
+
+        // 🔹 DISPLAY REVERSED STRING
+        System.out.println("Original: " + word);
+        System.out.println("Reversed: " + reversed);
 
         // 🔹 CHECK PALINDROME
         if (word.equals(reversed)) {
-            System.out.println(word + " is a Palindrome");
+            System.out.println("Result: Palindrome");
         } else {
-            System.out.println(word + " is NOT a Palindrome");
+            System.out.println("Result: Not a Palindrome");
         }
     }
 }
