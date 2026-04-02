@@ -1,26 +1,19 @@
 /**
  * Palindrome Checker Application
- * Use Case 12: Strategy Pattern for Palindrome Algorithms
+ * Use Case 13: Performance Comparison
  *
- * Demonstrates dynamic selection of palindrome algorithms.
+ * Compares execution time of different palindrome approaches.
  *
  * @author YourName
- * @version 12.0
+ * @version 13.0
  */
 
 import java.util.*;
 
-// 🔥 STRATEGY INTERFACE
-interface PalindromeStrategy {
-    boolean check(String input);
-}
-
-// 🔹 STACK STRATEGY
-class StackStrategy implements PalindromeStrategy {
-
-    public boolean check(String input) {
-
-        String str = input.replaceAll("\\s+", "").toLowerCase();
+// 🔹 STACK METHOD
+class StackMethod {
+    static boolean check(String input) {
+        String str = input.toLowerCase();
         Stack<Character> stack = new Stack<>();
 
         for (char c : str.toCharArray()) {
@@ -32,17 +25,14 @@ class StackStrategy implements PalindromeStrategy {
                 return false;
             }
         }
-
         return true;
     }
 }
 
-// 🔹 DEQUE STRATEGY
-class DequeStrategy implements PalindromeStrategy {
-
-    public boolean check(String input) {
-
-        String str = input.replaceAll("\\s+", "").toLowerCase();
+// 🔹 DEQUE METHOD
+class DequeMethod {
+    static boolean check(String input) {
+        String str = input.toLowerCase();
         Deque<Character> deque = new LinkedList<>();
 
         for (char c : str.toCharArray()) {
@@ -54,24 +44,24 @@ class DequeStrategy implements PalindromeStrategy {
                 return false;
             }
         }
-
         return true;
     }
 }
 
-// 🔥 CONTEXT CLASS
-class PalindromeChecker {
+// 🔹 TWO-POINTER METHOD (FASTEST)
+class TwoPointerMethod {
+    static boolean check(String input) {
+        String str = input.toLowerCase();
+        int start = 0, end = str.length() - 1;
 
-    private PalindromeStrategy strategy;
-
-    // SET STRATEGY
-    public void setStrategy(PalindromeStrategy strategy) {
-        this.strategy = strategy;
-    }
-
-    // EXECUTE STRATEGY
-    public boolean checkPalindrome(String input) {
-        return strategy.check(input);
+        while (start < end) {
+            if (str.charAt(start) != str.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
     }
 }
 
@@ -81,24 +71,32 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
         System.out.println("===== Palindrome Checker App =====");
-        System.out.println("Version: 12.0\n");
+        System.out.println("Version: 13.0\n");
 
-        String input = "Madam In Eden Im Adam";
+        String input = "MadamInEdenImAdam";
 
-        PalindromeChecker checker = new PalindromeChecker();
+        // 🔹 STACK TEST
+        long start1 = System.nanoTime();
+        StackMethod.check(input);
+        long end1 = System.nanoTime();
 
-        // 🔹 CHOOSE STRATEGY AT RUNTIME
-        checker.setStrategy(new DequeStrategy());
-        // Try: new StackStrategy()
+        // 🔹 DEQUE TEST
+        long start2 = System.nanoTime();
+        DequeMethod.check(input);
+        long end2 = System.nanoTime();
 
-        boolean result = checker.checkPalindrome(input);
+        // 🔹 TWO POINTER TEST
+        long start3 = System.nanoTime();
+        TwoPointerMethod.check(input);
+        long end3 = System.nanoTime();
 
-        System.out.println("Input: " + input);
+        // 🔹 RESULTS
+        System.out.println("Input: " + input + "\n");
 
-        if (result) {
-            System.out.println("Result: Palindrome");
-        } else {
-            System.out.println("Result: Not a Palindrome");
-        }
+        System.out.println("Stack Method Time: " + (end1 - start1) + " ns");
+        System.out.println("Deque Method Time: " + (end2 - start2) + " ns");
+        System.out.println("Two Pointer Time: " + (end3 - start3) + " ns");
+
+        System.out.println("\n(Faster method = lower time)");
     }
 }
