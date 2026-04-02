@@ -1,48 +1,59 @@
 /**
  * Palindrome Checker Application
- * Use Case 10: Case-Insensitive & Space-Ignored Palindrome
+ * Use Case 11: Object-Oriented Palindrome Service
  *
- * Normalizes string by removing spaces and ignoring case.
+ * Encapsulates palindrome logic inside a separate class.
  *
  * @author YourName
- * @version 10.0
+ * @version 11.0
  */
 
-public class PalindromeCheckerApp {
+// 🔥 SERVICE CLASS (ENCAPSULATION)
+class PalindromeChecker {
 
-    public static void main(String[] args) {
+    // METHOD TO CHECK PALINDROME
+    public boolean checkPalindrome(String input) {
 
-        System.out.println("===== Palindrome Checker App =====");
-        System.out.println("Version: 10.0\n");
+        // NORMALIZE INPUT
+        String str = input.replaceAll("\\s+", "").toLowerCase();
 
-        // 🔹 INPUT STRING (WITH SPACES & MIXED CASE)
-        String input = "Madam In Eden Im Adam";
-
-        // 🔹 NORMALIZE STRING
-        String normalized = input.replaceAll("\\s+", "").toLowerCase();
-
-        // 🔹 TWO-POINTER CHECK
         int start = 0;
-        int end = normalized.length() - 1;
-
-        boolean isPalindrome = true;
+        int end = str.length() - 1;
 
         while (start < end) {
 
-            if (normalized.charAt(start) != normalized.charAt(end)) {
-                isPalindrome = false;
-                break;
+            if (str.charAt(start) != str.charAt(end)) {
+                return false;
             }
 
             start++;
             end--;
         }
 
-        // 🔹 OUTPUT
-        System.out.println("Original: " + input);
-        System.out.println("Processed: " + normalized);
+        return true;
+    }
+}
 
-        if (isPalindrome) {
+// MAIN CLASS
+public class PalindromeCheckerApp {
+
+    public static void main(String[] args) {
+
+        System.out.println("===== Palindrome Checker App =====");
+        System.out.println("Version: 11.0\n");
+
+        String input = "Madam In Eden Im Adam";
+
+        // 🔹 CREATE OBJECT
+        PalindromeChecker checker = new PalindromeChecker();
+
+        // 🔹 CALL METHOD
+        boolean result = checker.checkPalindrome(input);
+
+        // 🔹 OUTPUT
+        System.out.println("Input: " + input);
+
+        if (result) {
             System.out.println("Result: Palindrome");
         } else {
             System.out.println("Result: Not a Palindrome");
