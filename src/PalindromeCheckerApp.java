@@ -1,11 +1,11 @@
 /**
  * Palindrome Checker Application
- * Use Case 6: Queue + Stack Based Palindrome Check
+ * Use Case 7: Deque-Based Optimized Palindrome Checker
  *
- * Demonstrates FIFO vs LIFO using Queue and Stack.
+ * Uses Deque to compare front and rear elements efficiently.
  *
  * @author YourName
- * @version 6.0
+ * @version 7.0
  */
 
 import java.util.*;
@@ -15,33 +15,28 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
         System.out.println("===== Palindrome Checker App =====");
-        System.out.println("Version: 6.0\n");
+        System.out.println("Version: 7.0\n");
 
         // 🔹 INPUT STRING
         String word = "madam";
 
-        // 🔹 STACK (LIFO)
-        Stack<Character> stack = new Stack<>();
-
-        // 🔹 QUEUE (FIFO)
-        Queue<Character> queue = new LinkedList<>();
+        // 🔹 DEQUE
+        Deque<Character> deque = new LinkedList<>();
 
         // 🔹 ADD CHARACTERS
         for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-            stack.push(ch);
-            queue.add(ch);
+            deque.addLast(word.charAt(i));
         }
 
-        // 🔹 COMPARE
+        // 🔹 COMPARE FRONT & REAR
         boolean isPalindrome = true;
 
-        while (!stack.isEmpty()) {
+        while (deque.size() > 1) {
 
-            char fromStack = stack.pop();     // LIFO
-            char fromQueue = queue.remove(); // FIFO
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
 
-            if (fromStack != fromQueue) {
+            if (front != rear) {
                 isPalindrome = false;
                 break;
             }
