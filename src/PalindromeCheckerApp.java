@@ -1,24 +1,31 @@
 /**
  * Palindrome Checker Application
- * Use Case 1: Application Entry & Welcome Message
+ * Use Case 2: Hardcoded Palindrome Check
  *
- * Displays application name and version at startup.
+ * Checks whether a predefined string is a palindrome.
  *
  * @author YourName
- * @version 1.0
+ * @version 2.0
  */
 
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        System.out.println("=================================");
-        System.out.println("     Palindrome Checker App      ");
-        System.out.println("=================================");
+        System.out.println("===== Palindrome Checker App =====");
+        System.out.println("Version: 2.0\n");
 
-        System.out.println("Version: 1.0");
-        System.out.println("Welcome! This app checks palindromes.");
+        // 🔹 HARDCODED STRING
+        String word = "madam";
 
-        System.out.println("\nApplication started successfully!");
+        // 🔹 REVERSE STRING
+        String reversed = new StringBuilder(word).reverse().toString();
+
+        // 🔹 CHECK PALINDROME
+        if (word.equals(reversed)) {
+            System.out.println(word + " is a Palindrome");
+        } else {
+            System.out.println(word + " is NOT a Palindrome");
+        }
     }
 }
