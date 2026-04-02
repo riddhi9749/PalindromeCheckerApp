@@ -1,11 +1,11 @@
 /**
  * Palindrome Checker Application
- * Use Case 3: Palindrome Check Using String Reverse (Loop)
+ * Use Case 4: Character Array Based Palindrome Check
  *
- * Reverses a string using a loop and checks palindrome.
+ * Uses char[] and two-pointer technique for efficient checking.
  *
  * @author YourName
- * @version 3.0
+ * @version 4.0
  */
 
 public class PalindromeCheckerApp {
@@ -13,27 +13,36 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
         System.out.println("===== Palindrome Checker App =====");
-        System.out.println("Version: 3.0\n");
+        System.out.println("Version: 4.0\n");
 
-        // 🔹 ORIGINAL STRING
+        // 🔹 INPUT STRING
         String word = "madam";
 
-        // 🔹 REVERSE USING LOOP
-        String reversed = "";
+        // 🔹 CONVERT TO CHAR ARRAY
+        char[] arr = word.toCharArray();
 
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reversed = reversed + word.charAt(i);
+        // 🔹 TWO POINTERS
+        int start = 0;
+        int end = arr.length - 1;
+
+        boolean isPalindrome = true;
+
+        while (start < end) {
+
+            if (arr[start] != arr[end]) {
+                isPalindrome = false;
+                break;
+            }
+
+            start++;
+            end--;
         }
 
-        // 🔹 DISPLAY REVERSED STRING
-        System.out.println("Original: " + word);
-        System.out.println("Reversed: " + reversed);
-
-        // 🔹 CHECK PALINDROME
-        if (word.equals(reversed)) {
-            System.out.println("Result: Palindrome");
+        // 🔹 RESULT
+        if (isPalindrome) {
+            System.out.println(word + " is a Palindrome");
         } else {
-            System.out.println("Result: Not a Palindrome");
+            System.out.println(word + " is NOT a Palindrome");
         }
     }
 }
