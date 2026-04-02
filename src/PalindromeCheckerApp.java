@@ -1,45 +1,51 @@
 /**
  * Palindrome Checker Application
- * Use Case 9: Recursive Palindrome Checker
+ * Use Case 10: Case-Insensitive & Space-Ignored Palindrome
  *
- * Uses recursion to compare characters from start and end.
+ * Normalizes string by removing spaces and ignoring case.
  *
  * @author YourName
- * @version 9.0
+ * @version 10.0
  */
 
 public class PalindromeCheckerApp {
 
-    // 🔹 RECURSIVE METHOD
-    static boolean isPalindrome(String str, int start, int end) {
-
-        // 🔹 BASE CONDITION
-        if (start >= end) {
-            return true;
-        }
-
-        // 🔹 CHECK CHARACTERS
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        // 🔹 RECURSIVE CALL
-        return isPalindrome(str, start + 1, end - 1);
-    }
-
     public static void main(String[] args) {
 
         System.out.println("===== Palindrome Checker App =====");
-        System.out.println("Version: 9.0\n");
+        System.out.println("Version: 10.0\n");
 
-        String word = "madam";
+        // 🔹 INPUT STRING (WITH SPACES & MIXED CASE)
+        String input = "Madam In Eden Im Adam";
 
-        boolean result = isPalindrome(word, 0, word.length() - 1);
+        // 🔹 NORMALIZE STRING
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
 
-        if (result) {
-            System.out.println(word + " is a Palindrome");
+        // 🔹 TWO-POINTER CHECK
+        int start = 0;
+        int end = normalized.length() - 1;
+
+        boolean isPalindrome = true;
+
+        while (start < end) {
+
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+
+            start++;
+            end--;
+        }
+
+        // 🔹 OUTPUT
+        System.out.println("Original: " + input);
+        System.out.println("Processed: " + normalized);
+
+        if (isPalindrome) {
+            System.out.println("Result: Palindrome");
         } else {
-            System.out.println(word + " is NOT a Palindrome");
+            System.out.println("Result: Not a Palindrome");
         }
     }
 }
