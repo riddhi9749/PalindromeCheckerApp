@@ -1,49 +1,107 @@
 /**
  * Palindrome Checker Application
- * Use Case 7: Deque-Based Optimized Palindrome Checker
+ * Use Case 8: Linked List Based Palindrome Checker
  *
- * Uses Deque to compare front and rear elements efficiently.
+ * Uses singly linked list, fast/slow pointer,
+ * and in-place reversal to check palindrome.
  *
  * @author YourName
- * @version 7.0
+ * @version 8.0
  */
-
-import java.util.*;
 
 public class PalindromeCheckerApp {
 
-    public static void main(String[] args) {
+    // 🔹 NODE CLASS
+    static class Node {
+        char data;
+        Node next;
 
-        System.out.println("===== Palindrome Checker App =====");
-        System.out.println("Version: 7.0\n");
-
-        // 🔹 INPUT STRING
-        String word = "madam";
-
-        // 🔹 DEQUE
-        Deque<Character> deque = new LinkedList<>();
-
-        // 🔹 ADD CHARACTERS
-        for (int i = 0; i < word.length(); i++) {
-            deque.addLast(word.charAt(i));
+        Node(char data) {
+            this.data = data;
+            this.next = null;
         }
+    }
 
-        // 🔹 COMPARE FRONT & REAR
-        boolean isPalindrome = true;
+    // 🔹 CREATE LINKED LIST FROM STRING
+    static Node createList(String word) {
 
-        while (deque.size() > 1) {
+        Node head = null, tail = null;
 
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
+        for (int i = 0; i < word.length(); i++) {
 
-            if (front != rear) {
-                isPalindrome = false;
-                break;
+            Node newNode = new Node(word.charAt(i));
+
+            if (head == null) {
+                head = tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
             }
         }
 
-        // 🔹 RESULT
-        if (isPalindrome) {
+        return head;
+    }
+
+    // 🔹 REVERSE LINKED LIST
+    static Node reverse(Node head) {
+
+        Node prev = null;
+        Node curr = head;
+
+        while (curr != null) {
+            Node next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    // 🔹 CHECK PALINDROME
+    static boolean isPalindrome(Node head) {
+
+        if (head == null || head.next == null)
+            return true;
+
+        // 🔹 FIND MIDDLE (FAST & SLOW POINTER)
+        Node slow = head, fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // 🔹 REVERSE SECOND HALF
+        Node secondHalf = reverse(slow);
+
+        // 🔹 COMPARE BOTH HALVES
+        Node firstHalf = head;
+
+        while (secondHalf != null) {
+
+            if (firstHalf.data != secondHalf.data) {
+                return false;
+            }
+
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        return true;
+    }
+
+    // 🔹 MAIN METHOD
+    public static void main(String[] args) {
+
+        System.out.println("===== Palindrome Checker App =====");
+        System.out.println("Version: 8.0\n");
+
+        String word = "madam";
+
+        Node head = createList(word);
+
+        if (isPalindrome(head)) {
             System.out.println(word + " is a Palindrome");
         } else {
             System.out.println(word + " is NOT a Palindrome");
